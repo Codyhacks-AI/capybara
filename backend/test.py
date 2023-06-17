@@ -11,8 +11,7 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 
-chat = ChatOpenAI(
-    openai_api_key="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", temperature=0)
+chat = ChatOpenAI(temperature=0)
 
 print(chat.predict_messages([HumanMessage(
     content="Translate this sentence from English to French. I love programming.")]))
