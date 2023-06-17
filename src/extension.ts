@@ -11,6 +11,10 @@ dotenv.config();
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   vscode.window.showInformationMessage("Extension started!");
+  console.log(
+    vscode.workspace.getConfiguration().get("capybaras.openAiApiKey"),
+  );
+
   createChains();
 
   vscode.workspace.onDidSaveTextDocument(onDocumentSave);

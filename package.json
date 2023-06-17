@@ -22,7 +22,17 @@
     ],
     "filesystem": [
       "file"
-    ]
+    ],
+    "configuration": {
+      "title": "Capybaras",
+      "properties": {
+        "capybaras.openAiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for OpenAI"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
