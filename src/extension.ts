@@ -1,25 +1,19 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
+import { onDocumentSave } from "./callbacks";
+import { createChains } from "./langchain";
+import * as dotenv from "dotenv";
+import { OpenAI } from "langchain";
+dotenv.config();
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  vscode.window.showInformationMessage("Extension started!");
+  createChains();
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "capybara" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('capybara.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Capybara!');
-	});
-
-	context.subscriptions.push(disposable);
+  vscode.workspace.onDidSaveTextDocument(onDocumentSave);
 }
 
 // This method is called when your extension is deactivated
