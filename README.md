@@ -14,7 +14,7 @@ This is the power of AI; This is thinking outside the box. This is Capybara.
 ## ⚙️ What is Capybara?
 Capybara is an AI-powered VSCode extension that uses LLM technology to provide insightful suggestions into code quality. On saving any code file, it interfaces with OpenAI's API to find poorly written code blocks and suggest detailed improvements. The extension also brings in AI to judge the programmer's experience level so that it can make well-suited recommendations for their skill level. Additionally, a chat feature allows users to interact and discuss highlighted sections of code.
 
-[Capybara Demo](https://github.com/Codyhacks-AI/capybara/assets/50549133/76c4d9fa-b4e0-4be6-aae0-f51bafb5ad20)
+https://github.com/Codyhacks-AI/capybara/assets/50549133/76c4d9fa-b4e0-4be6-aae0-f51bafb5ad20
 
 ## 🚧 Why Capybara?
 Capybara helps learning programmers and professionals alike to evaluate their code style, program defensively, and catch elusive bugs.
