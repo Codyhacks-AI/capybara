@@ -12,7 +12,8 @@ export const openChatBot = () => {
     if (message.command === 'sendMessage') {
       const text = message.text;
       // Call your callback function with the received message text
-      console.log(text);
+      vscode.window.showInformationMessage(text);
+
     }
   });
 };

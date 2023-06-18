@@ -3,13 +3,14 @@ import Flask from "./api/flask";
 import OpenAI from "./api/openai";
 import { OutputFunctionCall } from "./api/types";
 import { start } from "repl";
+import { openChatBot } from "./chatbot";
 
 export const onDocumentSave = async (document: vscode.TextDocument) => {
   vscode.window.showInformationMessage("Saving and checking in progress...");
   const filename = document.fileName;
   const languageId = document.languageId;
   const text = document.getText();
-  await searchNameConventions(text);
+  // await searchNameConventions(text);
   await searchDuplicates(text);
   // highlightLine(6, 10, "ho", "hi");
   vscode.window.showInformationMessage("Saved and Logged Imporvements!");
@@ -252,6 +253,32 @@ const highlightLine = async (startNumber: number, endNumber: number, reason: str
     }
   });
 
-  const decoration = { range: new vscode.Range(startPosition, endPosition), hoverMessage: `You code is bad because: ${reason}\n My suggestion is: ${suggestion}` };
+  let disposable = vscode.commands.registerCommand('extension.kissAllen', () => {
+    // Add your logic here to handle the command
+    openChatBot();
+  });
+  const hoverComponent = new vscode.MarkdownString();
+  hoverComponent.appendMarkdown(`[Click to Inquire More (⌘)](command:extension.kissAllen)`);
+  hoverComponent.appendMarkdown(`\n\n
+    The issue is: ${reason}  
+    My suggestion is: ${suggestion} \n
+    `);
+  hoverComponent.isTrusted = true;
+
+  // vscode.commands.registerCommand('explainMore', (args: { word: string }) => {
+  //   const { word } = args;
+  //   // Call your function here
+  //   explainMore(word);
+  // });
+
+  const decoration = {
+    range: new vscode.Range(startPosition, endPosition),
+    hoverMessage: hoverComponent,
+  };
   editor.setDecorations(highlightDecorationType, [decoration]);
 };
+
+// function explainMore(word: string) {
+//   // Implement your logic here to handle the function call
+//   console.log('Clicked on:', word);
+// }
