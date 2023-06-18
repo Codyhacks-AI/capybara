@@ -7,7 +7,6 @@ export const onDocumentSave = async (document: vscode.TextDocument) => {
   const filename = document.fileName;
   const languageId = document.languageId;
   const text = document.getText();
-  console.log("LKJ:LSKDFJ:DLKFSF");
   try {
     const res = await OpenAI.callFunction({
       messages: [
@@ -42,12 +41,12 @@ export const onDocumentSave = async (document: vscode.TextDocument) => {
                 type: "object",
                 properties: {
                   startLine: {
-                    type: "integer",
+                    type: "string",
                     description:
                       "The starting line of the code block to improve.",
                   },
                   endLine: {
-                    type: "integer",
+                    type: "string",
                     description: "The end line of the code block to improve.",
                   },
                   reason: {
@@ -67,6 +66,7 @@ export const onDocumentSave = async (document: vscode.TextDocument) => {
         },
       },
     });
+    console.log(res);
 
     // const res = await OpenAI.callFunction({
     //   messages: [

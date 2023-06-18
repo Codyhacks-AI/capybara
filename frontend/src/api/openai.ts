@@ -32,12 +32,13 @@ export const OpenAI = {
     const message = (await openai.createChatCompletion(input)).data.choices[0]
       .message;
     if (message && message.function_call) {
-      const functionCallString = message.function_call;
-      console.log(message.function_call);
-      const functionCall: OutputFunctionCall = JSON.parse(
-        functionCallString as string,
-      );
-      return functionCall;
+      const functionCall = message.function_call;
+      const output: OutputFunctionCall = {
+        name: functionCall.name!,
+        arguments: JSON.parse(functionCall.arguments!),
+      };
+      console.log(output);
+      return output;
     }
   },
 };

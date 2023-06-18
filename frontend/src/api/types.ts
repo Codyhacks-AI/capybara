@@ -44,6 +44,11 @@ export type InputFunction = {
 export type OutputFunctionCall = {
   name: string;
   arguments: {
-    [key: string]: string;
+    linesToHighlight: {
+      startLine: string;
+      endLine: string;
+      reason: string;
+      suggestion: string;
+    }[];
   };
 };
