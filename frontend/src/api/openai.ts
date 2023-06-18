@@ -4,11 +4,13 @@ import * as vscode from "vscode";
 import { Configuration, OpenAIApi } from "openai";
 import { InputMessage, InputFunction, OutputFunctionCall } from "./types";
 
-const config = new Configuration({
-  apiKey: vscode.workspace
-    .getConfiguration()
-    .get("capybaras.openAiApiKey") as string,
-});
+const config = new Configuration(
+  {
+    apiKey: vscode.workspace
+      .getConfiguration()
+      .get("capybaras.openAiApiKey") as string,
+  }
+);
 const openai = new OpenAIApi(config);
 
 // type FunctionOutput = {
