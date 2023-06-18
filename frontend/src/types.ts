@@ -1,3 +1,5 @@
+import { Class } from "utility-types";
+
 export type InputMessage = {
   role: "user" | "assistant" | "system";
   content: string;
@@ -39,19 +41,26 @@ export type InputFunction = {
   name: string;
   description: string;
   parameters: Parameter;
+  enum?: string[];
 };
 
-export type BlockTip = {
-  startLine: number;
-  endLine: number;
-  comment: string;
-};
+export class BlockTip {
+  startLine!: number;
+  endLine!: number;
+  comment!: string;
+}
 
-export type OutputFunctionCall = {
+export class CodeBlocksToHighlight {
+  codeBlocksToHighlight!: BlockTip[];
+}
+
+export class ExperienceLevelInstance {
+  experienceLevel!: ExperienceLevel;
+}
+
+export type FunctionCall<A extends Class<unknown> = any> = {
   name: string;
-  arguments: {
-    codeBlocksToHighlight: BlockTip[];
-  };
+  arguments: InstanceType<A>;
 };
 
 export enum ExperienceLevel {

@@ -30,16 +30,6 @@
           "type": "string",
           "default": "",
           "description": "API key for OpenAI"
-        },
-        "capybaras.experienceLevel": {
-          "type": "string",
-          "default": "Intermediate",
-          "enum": [
-            "Beginner",
-            "Intermediate",
-            "Experienced",
-            "Professional"
-          ]
         }
       }
     }

@@ -1,7 +1,13 @@
-import { InputFunction, InputMessage, VSCodeConfig } from "./types";
+import {
+  ExperienceLevel,
+  InputFunction,
+  InputMessage,
+  VSCodeConfig,
+} from "./types";
 
 export const codeHighlightingPrompt = (
   text: string,
+  experienceLevel: ExperienceLevel,
   vscodeConfig: VSCodeConfig,
 ) => {
   return {
@@ -13,7 +19,7 @@ export const codeHighlightingPrompt = (
               You should be looking for high level poor code quality, not syntactical and formatting issues.
               You should never give suggestions on tab sizing, identation, or whitespace.
               You should only give 0 to 5 suggestions, so choose the most important ones.
-              You are giving suggestions to a ${vscodeConfig.experienceLevel}.
+              You are giving suggestions to a ${experienceLevel}.
               `,
       },
       {
@@ -75,16 +81,22 @@ export const calibrateExperienceLevel = (text: string) => {
       {
         role: "system",
         content: `
-              You are an expert coder that is trying to first figure out the experience level of the programmer that wrote the following code.
-              ${text}
-              `,
+          You are an expert coder that is trying to first figure out the experience level of the programmer that wrote the code.
+        `,
+      },
+      {
+        role: "user",
+        content: `
+          Read the following code and call a function with my experience level. Here is the code
+          ${text}
+        `,
       },
     ] as InputMessage[],
     function: {
       name: "setExperienceLevel",
       description: `
-            This function sets the experience level of the programmer based on the code that they have written so far.
-            `,
+        This function sets the experience level of the programmer based on the code that they have written so far.
+      `,
       parameters: {
         type: "object",
         properties: {
@@ -103,6 +115,6 @@ export const calibrateExperienceLevel = (text: string) => {
         },
         required: ["experienceLevel"],
       },
-    },
+    } as InputFunction,
   };
 };

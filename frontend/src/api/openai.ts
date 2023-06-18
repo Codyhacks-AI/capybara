@@ -2,32 +2,32 @@ import { Class } from "utility-types";
 import { createRequest, Request } from ".";
 import * as vscode from "vscode";
 import { Configuration, OpenAIApi } from "openai";
-import { InputMessage, InputFunction, OutputFunctionCall } from "../types";
+import { InputMessage, InputFunction, FunctionCall } from "../types";
 
-const config = new Configuration(
-  {
-    apiKey: vscode.workspace
-      .getConfiguration()
-      .get("capybaras.openAiApiKey") as string,
-  }
-);
+const config = new Configuration({
+  apiKey: vscode.workspace
+    .getConfiguration()
+    .get("capybaras.openAiApiKey") as string,
+});
 const openai = new OpenAIApi(config);
 
 export const OpenAI = {
-  callHighlightFunction: async (params: {
+  callFunction: async <A extends Class<unknown>>(params: {
     messages: InputMessage[];
     function: InputFunction;
-  }): Promise<OutputFunctionCall | undefined> => {
+    arguments: A;
+  }): Promise<FunctionCall<A> | undefined> => {
     const input = {
       model: "gpt-4-0613",
       messages: params.messages,
       functions: [params.function],
     };
-    const message = (await openai.createChatCompletion(input)).data.choices[0]
-      .message;
+    console.log(input);
+    const output = await openai.createChatCompletion(input);
+    const message = output.data.choices[0].message;
     if (message && message.function_call) {
       const functionCall = message.function_call;
-      const output: OutputFunctionCall = {
+      const output: FunctionCall<A> = {
         name: functionCall.name!,
         arguments: JSON.parse(functionCall.arguments!),
       };
