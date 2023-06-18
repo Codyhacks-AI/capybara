@@ -77,8 +77,12 @@ idk = "this is bad"
 # generate context via semantic search -> store in docs
 def answer(new_code):
     docs = docsearch.similarity_search(new_code)
-    inputs = [{"context": doc.page_content, "new_code": new_code} for doc in docs]
-    print(chain.apply_and_parse(inputs))
+    combined = ""
+    for doc in docs:
+        combined += doc.page_content + "/n"
+    print(combined)
+    inputs = [{"context": combined, "new_code": new_code}]
+    print(chain.apply(inputs))
 
 answer(query)
 # call the chain to query the llm with both query and context(docs)
