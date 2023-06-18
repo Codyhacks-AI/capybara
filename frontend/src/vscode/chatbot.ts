@@ -1,9 +1,12 @@
 import * as vscode from "vscode";
 import { WebviewData } from "../types";
 import LangChain, { startCodeCommentChat } from "../api/langchain";
+import { addLineNumbers } from "../helpers";
 
-export const openChatBot = ({ document, block }: WebviewData) => {
-  const chain = startCodeCommentChat(
+export const openChatBot = async ({ document, block }: WebviewData) => {
+  document = addLineNumbers(document);
+
+  const chain = await startCodeCommentChat(
     document,
     block.comment,
     block.startLine,
@@ -27,7 +30,13 @@ export const openChatBot = ({ document, block }: WebviewData) => {
     panel.webview.onDidReceiveMessage(async (message) => {
       if (message.command === "sendMessage") {
         const res = await LangChain.callChain({
-          input: message.text,
+          args: {
+            input: message.text,
+            comment: block.comment,
+            start: block.startLine,
+            end: block.endLine,
+            code: document,
+          },
           chain,
         });
         panel.webview.postMessage({ command: "handleResponse", text: res });

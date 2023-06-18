@@ -18,8 +18,7 @@ export const OpenAI = {
     arguments: A;
   }): Promise<FunctionCall<A> | undefined> => {
     const input = {
-      // model: "gpt-4-0613",
-      model: "gpt-3.5-turbo-0613",
+      model: "gpt-4-0613",
       messages: params.messages,
       functions: [params.function],
     };
