@@ -22,16 +22,7 @@ const splitter = new CharacterTextSplitter({
   chunkOverlap: 200,
 });
 
-export const startCodeCommentChat = async (
-  document: string,
-  comment: string,
-  startLine: number,
-  endLine: number,
-) => {
-  const splitCode = await splitter.createDocuments([document], [], {
-    chunkHeader: `Code --- `,
-    appendChunkOverlapHeader: true,
-  });
+export const startCodeCommentChat = async () => {
   const codeCommentHelpPrompt = ChatPromptTemplate.fromPromptMessages([
     SystemMessagePromptTemplate.fromTemplate(
       `You are chatting with a human about code quality in a file that they wrote. There is a comment that references lines start through end.

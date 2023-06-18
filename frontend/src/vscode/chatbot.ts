@@ -6,12 +6,7 @@ import { addLineNumbers } from "../helpers";
 export const openChatBot = async ({ document, block }: WebviewData) => {
   document = addLineNumbers(document);
 
-  const chain = await startCodeCommentChat(
-    document,
-    block.comment,
-    block.startLine,
-    block.endLine,
-  );
+  const chain = await startCodeCommentChat();
 
   const activeEditor = vscode.window.activeTextEditor;
   if (activeEditor && activeEditor.viewColumn) {
