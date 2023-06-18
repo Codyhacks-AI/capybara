@@ -1,3 +1,3 @@
 # capybara
 
-[Demo](https://github.com/Codyhacks-AI/capybara/blob/main/assets/demo.mp4)
+https://github.com/Codyhacks-AI/capybara/assets/50549133/76c4d9fa-b4e0-4be6-aae0-f51bafb5ad20
