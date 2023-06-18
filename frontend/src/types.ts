@@ -41,14 +41,27 @@ export type InputFunction = {
   parameters: Parameter;
 };
 
+export type BlockTip = {
+  startLine: number;
+  endLine: number;
+  comment: string;
+};
+
 export type OutputFunctionCall = {
   name: string;
   arguments: {
-    linesToHighlight: {
-      startLine: string;
-      endLine: string;
-      reason: string;
-      suggestion: string;
-    }[];
+    codeBlocksToHighlight: BlockTip[];
   };
+};
+
+export enum ExperienceLevel {
+  Beginner = "Beginner",
+  Intermediate = "Intermediate",
+  Experienced = "Experienced",
+  Professional = "Professional",
+}
+
+export type VSCodeConfig = {
+  tabSize: number;
+  experienceLevel: ExperienceLevel;
 };

@@ -2,7 +2,7 @@ import { Class } from "utility-types";
 import { createRequest, Request } from ".";
 import * as vscode from "vscode";
 import { Configuration, OpenAIApi } from "openai";
-import { InputMessage, InputFunction, OutputFunctionCall } from "./types";
+import { InputMessage, InputFunction, OutputFunctionCall } from "../types";
 
 const config = new Configuration(
   {
@@ -13,21 +13,13 @@ const config = new Configuration(
 );
 const openai = new OpenAIApi(config);
 
-// type FunctionOutput = {
-//   id: string;
-//   choices: {
-//     index: number;
-//     message: OutputMessage;
-//   }[];
-// };
-
 export const OpenAI = {
-  callFunction: async (params: {
+  callHighlightFunction: async (params: {
     messages: InputMessage[];
     function: InputFunction;
   }): Promise<OutputFunctionCall | undefined> => {
     const input = {
-      model: "gpt-3.5-turbo-0613",
+      model: "gpt-4-0613",
       messages: params.messages,
       functions: [params.function],
     };
