@@ -14,12 +14,6 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "capybara.helloWorld",
-        "title": "Hello World"
-      }
-    ],
     "filesystem": [
       "file"
     ],

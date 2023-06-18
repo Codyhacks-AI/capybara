@@ -74,3 +74,8 @@ export type VSCodeConfig = {
   tabSize: number;
   experienceLevel: ExperienceLevel;
 };
+
+export type WebviewData = {
+  document: string;
+  block: BlockTip;
+};

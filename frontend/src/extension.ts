@@ -3,11 +3,21 @@
 import * as vscode from "vscode";
 import { onDocumentSave } from "./callbacks";
 import axios from "axios";
+import { openChatBot } from "./vscode/chatbot";
+import { WebviewData } from "./types";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   vscode.window.showInformationMessage("Extension started!");
+
+  const openChatCommand = vscode.commands.registerCommand(
+    "capybaras.openChat",
+    (data: any) => {
+      openChatBot(data);
+    },
+  );
+  context.subscriptions.push(openChatCommand);
 
   // AXIOS DEFAULTS
   axios.defaults.headers["Content-Type"] = "application/json";

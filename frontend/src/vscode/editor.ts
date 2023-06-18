@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { BlockTip, ExperienceLevel, VSCodeConfig } from "../types";
+import { BlockTip, ExperienceLevel, VSCodeConfig, WebviewData } from "../types";
 
 const yellowDecoration = vscode.window.createTextEditorDecorationType({
   backgroundColor: "yellow",
@@ -35,7 +35,22 @@ export const highlightLines = async (
       new vscode.Position(startLine - 1, 0),
       new vscode.Position(endLine - 1, endLineRef.text.length),
     );
-    const hoverMessage = [new vscode.MarkdownString(comment)];
+
+    const args: WebviewData = {
+      document: document.getText(),
+      block,
+    };
+    const encodedArgs = encodeURIComponent(JSON.stringify(args));
+    const commandUri = vscode.Uri.parse(
+      `command:capybaras.openChat?${encodedArgs}`,
+    );
+    const contentMessage = new vscode.MarkdownString(comment);
+    const openChatMessage = new vscode.MarkdownString(
+      `[Open Chat](${commandUri.toString()})`,
+    );
+    openChatMessage.isTrusted = true;
+    const hoverMessage = [contentMessage, openChatMessage];
+
     decorations.push({
       range,
       hoverMessage,
